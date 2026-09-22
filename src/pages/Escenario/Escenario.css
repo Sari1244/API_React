@@ -1,0 +1,91 @@
+body {
+    font-family: Tahoma;
+    color: #7A3622;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+/* ESCENARIO */
+
+.escenario {
+    width: 600px;
+    height: 400px;
+    margin: 90px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: center;
+    background-image: url("../../assets/escenario_1.jpg");
+    background-size: cover;
+    background-position: center;
+    color: #7A3622;
+    box-shadow:
+        0 0 15px rgba(243, 133, 98, 0.7),
+        0 0 35px rgba(255, 210, 190, 0.6);
+    transition:
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+}
+
+
+/* BRILLO AL PASAR EL MOUSE */
+
+.escenario:hover {
+    box-shadow:
+        0 0 20px rgba(243, 133, 98, 0.9),
+        0 0 45px rgba(255, 210, 190, 0.8);
+}
+
+
+/* BOTONES */
+
+.boton {
+    background: transparent;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    padding: 1px;
+    transition: transform 0.2s;
+}
+
+.boton:hover {
+    transform: scale(1.2);
+}
+
+/* CONTENEDOR DE BOTONES */
+
+.botones {
+    display: flex;
+    justify-content: center;
+}
+
+/* POSICIÓN */
+
+.posicion {
+    margin-top: 1px;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* MODO OSCURO */
+
+.dark body {
+    background-color: #2B1711;
+}
+
+.dark .escenario {
+
+    color: #2B1711;
+
+    box-shadow:
+        0 0 18px rgba(243, 133, 98, 0.8),
+        0 0 40px rgba(122, 54, 34, 0.9);
+}
+
+.dark .escenario:hover {
+
+    box-shadow:
+        0 0 25px rgba(243, 133, 98, 1),
+        0 0 55px rgba(122, 54, 34, 1);
+}

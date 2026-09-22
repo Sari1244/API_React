@@ -1,0 +1,114 @@
+
+.header {
+    height: 100px;
+    background: #7A3622;
+    color: #FFF8F5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(122, 54, 34, 0.18);
+    padding: 0 40px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.login-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+/* =========================
+     LOGO
+========================= */
+
+.logo img{
+    cursor: pointer;
+    user-select: none;
+    transition: 0.3s ease;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.logo:hover {
+    opacity: 0.8;
+}
+
+/* =========================
+     NAVBAR
+========================= */
+
+.menu {
+    display: flex;
+    align-items: center;
+
+    list-style: none;
+    gap: 35px;
+
+    margin: 0;
+    padding: 0;
+}
+
+/* Botones del menú */
+
+.menu button {
+    border: none;
+    background: transparent;
+
+    color: white;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    padding: 8px 4px;
+
+    transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+/* Hover de los botones */
+
+.menu button:hover {
+    color: #FFD2BE;
+    transform: translateY(-2px);
+}
+/* =========================
+     LOGIN
+========================= */
+
+.btn-login {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #F38562;
+    color: #FFF8F5;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition:
+        background 0.3s ease,
+        transform 0.3s ease;
+}
+
+/* Hover del login */
+
+.btn-login:hover {
+    background: #FFD2BE;
+    color: #7A3622;
+    transform: translateY(-2px);
+}
+
+/* =========================
+     CONTENIDO PRINCIPAL
+========================= */
+
+main {
+    min-height: calc(100vh - 70px);
+}
