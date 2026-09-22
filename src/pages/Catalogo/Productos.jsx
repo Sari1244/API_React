@@ -23,25 +23,30 @@ function Productos() {
         totalResultados / librosPorPagina
     );
 
+
     function cambiarGenero(e) {
         setGenero(e.target.value);
         setPagina(1);
     }
+
 
     function cambiarOrden(e) {
         setOrden(e.target.value);
         setPagina(1);
     }
 
+
     const primerResultado =
         totalResultados === 0
             ? 0
             : (pagina - 1) * librosPorPagina + 1;
 
+
     const ultimoResultado = Math.min(
         pagina * librosPorPagina,
         totalResultados
     );
+
 
     return (
         <section
@@ -55,6 +60,7 @@ function Productos() {
                 duration-300
             "
         >
+
             <div className="max-w-7xl mx-auto">
 
                 {/* ENCABEZADO */}
@@ -84,6 +90,7 @@ function Productos() {
 
                 </div>
 
+
                 {/* FILTROS */}
 
                 <div
@@ -97,6 +104,8 @@ function Productos() {
                         text-center
                     "
                 >
+
+                    {/* FILTRO DE GÉNERO */}
 
                     <div className="flex flex-col gap-2">
 
@@ -132,6 +141,7 @@ function Productos() {
                                 dark:text-[#FFD2BE]
                             "
                         >
+
                             <option value="todos">
                                 Todos
                             </option>
@@ -180,6 +190,9 @@ function Productos() {
 
                     </div>
 
+
+                    {/* ORDEN */}
+
                     <div className="flex flex-col gap-2">
 
                         <label
@@ -214,6 +227,7 @@ function Productos() {
                                 dark:text-[#FFD2BE]
                             "
                         >
+
                             <option value="popularidad">
                                 Más populares
                             </option>
@@ -232,9 +246,11 @@ function Productos() {
 
                 </div>
 
+
                 {/* CARGANDO */}
 
                 {cargando && (
+
                     <div
                         className="
                             py-20
@@ -245,11 +261,14 @@ function Productos() {
                     >
                         Cargando libros...
                     </div>
+
                 )}
+
 
                 {/* ERROR */}
 
                 {error && (
+
                     <p
                         className="
                             py-10
@@ -259,13 +278,16 @@ function Productos() {
                     >
                         {error}
                     </p>
+
                 )}
+
 
                 {/* LIBROS */}
 
                 {!cargando && !error && (
 
                     <>
+
                         <div
                             className="
                                 grid
@@ -276,14 +298,19 @@ function Productos() {
                                 gap-7
                             "
                         >
+
                             {libros.map((libro) => (
+
                                 <BookCard
                                     key={libro.key}
                                     libro={libro}
                                     onVerDetalle={setLibroSeleccionado}
                                 />
+
                             ))}
+
                         </div>
+
 
                         {/* INFORMACIÓN DE RESULTADOS */}
 
@@ -296,20 +323,29 @@ function Productos() {
                                 dark:text-[#FFD2BE]/70
                             "
                         >
+
                             Mostrando{" "}
+
                             <strong>
                                 {primerResultado}
                             </strong>
+
                             {" – "}
+
                             <strong>
                                 {ultimoResultado}
                             </strong>
+
                             {" de "}
+
                             <strong>
                                 {totalResultados.toLocaleString()}
                             </strong>
+
                             {" libros"}
+
                         </div>
+
 
                         {/* PAGINACIÓN */}
 
@@ -319,111 +355,310 @@ function Productos() {
                                 className="
                                     mt-5
                                     flex
+                                    flex-col
                                     items-center
-                                    justify-center
-                                    gap-2
-                                    flex-wrap
+                                    gap-3
                                 "
                             >
 
-                                <button
-                                    type="button"
-                                    disabled={pagina === 1}
-                                    onClick={() =>
-                                        setPagina((actual) => actual - 1)
-                                    }
+                                <div
                                     className="
-                                        rounded-xl
-                                        px-4
-                                        py-2
-                                        font-semibold
-                                        bg-[#FFD2BE]
-                                        text-[#7A3622]
-                                        disabled:opacity-40
-                                        disabled:cursor-not-allowed
-                                        hover:bg-[#F38562]
-                                        hover:text-white
-                                        transition-colors
+                                        flex
+                                        items-center
+                                        justify-center
+                                        gap-2
+                                        flex-wrap
                                     "
                                 >
-                                    ←
-                                </button>
 
-                                {Array.from(
-                                    {
-                                        length: Math.min(totalPaginas, 5)
-                                    },
-                                    (_, indice) => {
+                                    {/* BOTÓN ANTERIOR */}
 
-                                        const numeroPagina =
-                                            indice + 1;
+                                    <button
+                                        type="button"
+                                        disabled={pagina === 1}
+                                        onClick={() =>
+                                            setPagina(
+                                                (actual) => actual - 1
+                                            )
+                                        }
+                                        className="
+                                            rounded-xl
+                                            px-4
+                                            py-2
+                                            font-semibold
+                                            bg-[#FFD2BE]
+                                            text-[#7A3622]
+                                            disabled:opacity-40
+                                            disabled:cursor-not-allowed
+                                            hover:bg-[#F38562]
+                                            hover:text-white
+                                            transition-colors
+                                        "
+                                    >
+                                        ←
+                                    </button>
+
+
+                                    {/* NÚMEROS DE PÁGINA */}
+
+                                    {(() => {
+
+                                        const paginasVisibles = 5;
+
+                                        let inicio = Math.max(
+                                            1,
+                                            pagina - 2
+                                        );
+
+                                        let fin = Math.min(
+                                            totalPaginas,
+                                            inicio + paginasVisibles - 1
+                                        );
+
+
+                                        if (
+                                            fin - inicio + 1 <
+                                            paginasVisibles
+                                        ) {
+
+                                            inicio = Math.max(
+                                                1,
+                                                fin - paginasVisibles + 1
+                                            );
+
+                                        }
+
 
                                         return (
-                                            <button
-                                                key={numeroPagina}
-                                                type="button"
-                                                onClick={() =>
-                                                    setPagina(numeroPagina)
-                                                }
-                                                className={`
-                                                    rounded-xl
-                                                    px-4
-                                                    py-2
-                                                    font-semibold
-                                                    transition-colors
-                                                    ${
-                                                        pagina === numeroPagina
-                                                            ? "bg-[#F38562] text-white"
-                                                            : "bg-[#FFD2BE] text-[#7A3622] hover:bg-[#F38562] hover:text-white"
-                                                    }
-                                                `}
-                                            >
-                                                {numeroPagina}
-                                            </button>
-                                        );
-                                    }
-                                )}
 
-                                <button
-                                    type="button"
-                                    disabled={
-                                        pagina === totalPaginas
-                                    }
-                                    onClick={() =>
-                                        setPagina((actual) => actual + 1)
-                                    }
+                                            <>
+
+                                                {/* PRIMERA PÁGINA */}
+
+                                                {inicio > 1 && (
+
+                                                    <>
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() =>
+                                                                setPagina(1)
+                                                            }
+                                                            className="
+                                                                rounded-xl
+                                                                px-4
+                                                                py-2
+                                                                font-semibold
+                                                                bg-[#FFD2BE]
+                                                                text-[#7A3622]
+                                                                hover:bg-[#F38562]
+                                                                hover:text-white
+                                                                transition-colors
+                                                            "
+                                                        >
+                                                            1
+                                                        </button>
+
+
+                                                        {inicio > 2 && (
+
+                                                            <span
+                                                                className="
+                                                                    px-1
+                                                                    text-[#7A3622]
+                                                                    dark:text-[#FFD2BE]
+                                                                "
+                                                            >
+                                                                ...
+                                                            </span>
+
+                                                        )}
+
+                                                    </>
+
+                                                )}
+
+
+                                                {/* PÁGINAS CENTRALES */}
+
+                                                {Array.from(
+                                                    {
+                                                        length:
+                                                            fin -
+                                                            inicio +
+                                                            1
+                                                    },
+                                                    (_, indice) => {
+
+                                                        const numeroPagina =
+                                                            inicio +
+                                                            indice;
+
+
+                                                        return (
+
+                                                            <button
+                                                                key={
+                                                                    numeroPagina
+                                                                }
+                                                                type="button"
+                                                                onClick={() =>
+                                                                    setPagina(
+                                                                        numeroPagina
+                                                                    )
+                                                                }
+                                                                className={`
+                                                                    rounded-xl
+                                                                    px-4
+                                                                    py-2
+                                                                    font-semibold
+                                                                    transition-colors
+
+                                                                    ${
+                                                                        pagina ===
+                                                                        numeroPagina
+                                                                            ? "bg-[#F38562] text-white"
+                                                                            : "bg-[#FFD2BE] text-[#7A3622] hover:bg-[#F38562] hover:text-white"
+                                                                    }
+                                                                `}
+                                                            >
+                                                                {
+                                                                    numeroPagina
+                                                                }
+                                                            </button>
+
+                                                        );
+
+                                                    }
+                                                )}
+
+
+                                                {/* ÚLTIMA PÁGINA */}
+
+                                                {fin <
+                                                    totalPaginas && (
+
+                                                    <>
+
+                                                        {fin <
+                                                            totalPaginas -
+                                                                1 && (
+
+                                                            <span
+                                                                className="
+                                                                    px-1
+                                                                    text-[#7A3622]
+                                                                    dark:text-[#FFD2BE]
+                                                                "
+                                                            >
+                                                                ...
+                                                            </span>
+
+                                                        )}
+
+
+                                                        <button
+                                                            type="button"
+                                                            onClick={() =>
+                                                                setPagina(
+                                                                    totalPaginas
+                                                                )
+                                                            }
+                                                            className="
+                                                                rounded-xl
+                                                                px-4
+                                                                py-2
+                                                                font-semibold
+                                                                bg-[#FFD2BE]
+                                                                text-[#7A3622]
+                                                                hover:bg-[#F38562]
+                                                                hover:text-white
+                                                                transition-colors
+                                                            "
+                                                        >
+                                                            {
+                                                                totalPaginas
+                                                            }
+                                                        </button>
+
+                                                    </>
+
+                                                )}
+
+                                            </>
+
+                                        );
+
+                                    })()}
+
+
+                                    {/* BOTÓN SIGUIENTE */}
+
+                                    <button
+                                        type="button"
+                                        disabled={
+                                            pagina === totalPaginas
+                                        }
+                                        onClick={() =>
+                                            setPagina(
+                                                (actual) => actual + 1
+                                            )
+                                        }
+                                        className="
+                                            rounded-xl
+                                            px-4
+                                            py-2
+                                            font-semibold
+                                            bg-[#FFD2BE]
+                                            text-[#7A3622]
+                                            disabled:opacity-40
+                                            disabled:cursor-not-allowed
+                                            hover:bg-[#F38562]
+                                            hover:text-white
+                                            transition-colors
+                                        "
+                                    >
+                                        →
+                                    </button>
+
+                                </div>
+
+
+                                {/* PÁGINA ACTUAL */}
+
+                                <p
                                     className="
-                                        rounded-xl
-                                        px-4
-                                        py-2
-                                        font-semibold
-                                        bg-[#FFD2BE]
-                                        text-[#7A3622]
-                                        disabled:opacity-40
-                                        disabled:cursor-not-allowed
-                                        hover:bg-[#F38562]
-                                        hover:text-white
-                                        transition-colors
+                                        text-sm
+                                        font-medium
+                                        text-[#7A3622]/70
+                                        dark:text-[#FFD2BE]/70
                                     "
                                 >
-                                    →
-                                </button>
+                                    Página {pagina} de {totalPaginas}
+                                </p>
 
                             </div>
+
                         )}
 
                     </>
+
                 )}
 
             </div>
 
+
             {/* DETALLE DEL LIBRO */}
 
             {libroSeleccionado && (
+
                 <BookDetail
                     libro={libroSeleccionado}
-                    onCerrar={() => setLibroSeleccionado(null)}
+                    onCerrar={() =>
+                        setLibroSeleccionado(null)
+                    }
                 />
+
             )}
 
         </section>
