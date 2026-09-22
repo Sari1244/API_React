@@ -4,7 +4,7 @@ function Tortuga({ posicion }) {
         style={{
         fontSize: "60px",
         position: "relative",
-        marginTop: "180px",
+        marginTop: "210px",
         left: `${posicion}px`,
         transition: "left 0.2s"
         }}
