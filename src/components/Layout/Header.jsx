@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 import "./Layout.css";
 import Logo from "../../assets/book.jpg";
 import { useState } from "react";
-import CartPanel from "../Carrito/CartPanel";
+import CartPanel from "../carrito/CartPanel";
 import { useAuth } from "../../contexts/AuthContext";
 
 function Header({ pagina, setPagina }) {
