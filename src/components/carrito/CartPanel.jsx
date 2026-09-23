@@ -349,16 +349,34 @@ function CartPanel({ abierto, onCerrar }) {
                                             {/* ELIMINAR */}
                                             <button
                                                 type="button"
-                                                onClick={() => {
+                                                onClick={async () => {
+                                                    const resultado = await Swal.fire({
+                                                        title: "¿Eliminar libro?",
+                                                        text: `¿Quieres eliminar "${item.name}" del carrito?`,
+                                                        icon: "warning",
+                                                        showCancelButton: true,
+                                                        confirmButtonText: "Sí, eliminar",
+                                                        cancelButtonText: "Cancelar",
+                                                        confirmButtonColor: "#F38562",
+                                                        cancelButtonColor: "#7A3622",
+                                                        reverseButtons: true,
+                                                        background: "#FFF8F5",
+                                                        color: "#7A3622",
+                                                    });
 
-                                                    const confirmar = window.confirm(
-                                                        `¿Está seguro de que desea eliminar "${item.name}" del carrito?`
-                                                    );
-
-                                                    if (confirmar) {
+                                                    if (resultado.isConfirmed) {
                                                         eliminarDelCarrito(item.id);
-                                                    }
 
+                                                        await Swal.fire({
+                                                            title: "¡Eliminado!",
+                                                            text: `"${item.name}" fue eliminado del carrito.`,
+                                                            icon: "success",
+                                                            confirmButtonText: "Aceptar",
+                                                            confirmButtonColor: "#F38562",
+                                                            background: "#FFF8F5",
+                                                            color: "#7A3622",
+                                                        });
+                                                    }
                                                 }}
                                                 className="
                                                     h-fit
