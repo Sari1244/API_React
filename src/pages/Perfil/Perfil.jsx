@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { User, Camera, LogOut, Mail, Pencil, Save, X } from "lucide-react";
 import toast from "react-hot-toast";
 import { useAuth } from "../../contexts/AuthContext";
+import Swal from 'sweetalert2';
 
 function Perfil() {
 
@@ -93,13 +94,22 @@ function Perfil() {
     }
 
 
-    function manejarCerrarSesion() {
-
-        cerrarSesion();
-
-        toast.success("Sesión cerrada");
-
-        navigate("/login");
+function manejarCerrarSesion() {
+        Swal.fire({
+            title: '¿Deseas cerrar sesión?',
+            text: "Tendrás que volver a ingresar tus datos la próxima vez.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#F38562',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, cerrar sesión',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                cerrarSesion();
+                navigate("/login");
+            }
+        });
     }
 
 

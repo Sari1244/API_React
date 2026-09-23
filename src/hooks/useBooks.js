@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 
-const RANGO_PRECIO = {
-    min: 7000,
-    max: 50000
-};
+const RANGO_PRECIO = {min: 35000, max: 120000};
 
 const LIBROS_POR_PAGINA = 12;
 

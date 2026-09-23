@@ -1,7 +1,7 @@
 import { useEffect, useEffectEvent, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-function FormFile({ label, name, required = false, error = "", maxSizeMB = 2, maxFiles = 3, onFilesChange = () => {}, value={}, accept = { "application/pdf": [".pdf"] } }) {
+function FormFile({ label, name, required = false, error = "", maxSizeMB = 2, maxFiles = 3, onFilesChange = () => { }, value = {}, accept = { "application/pdf": [".pdf"] } }) {
 
     // El id esta hecho con nombre, fecha de modificación y tamaño
     const generarId = (file) =>
@@ -15,8 +15,8 @@ function FormFile({ label, name, required = false, error = "", maxSizeMB = 2, ma
 
     const [archivos, setArchivos] = useState([]);
 
-    useEffect(()=> {
-        if (value.length === 0 && archivos.length > 0){
+    useEffect(() => {
+        if (value.length === 0 && archivos.length > 0) {
             setArchivos([]);
         }
     }, [value]);
@@ -180,9 +180,29 @@ function FormFile({ label, name, required = false, error = "", maxSizeMB = 2, ma
                         <button
                             type="button"
                             className="cursor-pointer text-2xl"
-                            onClick={() => eliminarArchivo(id)}
+                            onClick={async () => {
+
+                                const resultado = await Swal.fire({
+                                    title: "¿Eliminar libro?",
+                                    text: `¿Desea eliminar "${item.name}" del carrito?`,
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonText: "Sí, eliminar",
+                                    cancelButtonText: "Cancelar",
+                                    confirmButtonColor: "#F38562",
+                                    cancelButtonColor: "#7A3622",
+                                    reverseButtons: true,
+                                    background: "#FFF8F5",
+                                    color: "#7A3622",
+                                });
+
+                                if (resultado.isConfirmed) {
+                                    eliminarDelCarrito(item.id);
+                                }
+
+                            }}
                         >
-                          ❌  
+                            ❌
                         </button>
 
                     </div>
